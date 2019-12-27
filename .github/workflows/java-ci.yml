@@ -15,7 +15,7 @@ jobs:
         java-version: 12
     - name: Build with Gradle
       env:
-        DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN_DEV }}
+        DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         DISCORD_TOKEN_DEV: ${{ secrets.DISCORD_TOKEN_DEV }}
       run: ./gradlew build
     - name: Deploy Docker Image
