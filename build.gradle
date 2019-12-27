@@ -69,6 +69,9 @@ static def getCommitHash() {
     'git rev-parse --verify --short HEAD'.execute().text.trim()
 }
 
+/*
+ * Does not work in GitHub Actions/Workflows.
+ */
 static def getBranchName() {
     'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
 }
@@ -79,17 +82,12 @@ jib {
     }
     to {
         image = "techtony96/boltbot:$project_version-".toString() + getCommitHash()
-        switch (getBranchName()) {
+        switch (project.findProject("GitBranch")) {
             case 'master':
-                project.logger.lifecycle('Current branch 1: ' + getBranchName())
                 tags = ['latest']
                 break
             case 'dev':
-                project.logger.lifecycle('Current branch 2: ' + getBranchName())
                 tags = ['dev-latest']
-                break
-            default:
-                project.logger.lifecycle('Current branch 3: ' + getBranchName())
                 break
         }
         auth {
