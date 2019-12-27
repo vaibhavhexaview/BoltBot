@@ -81,10 +81,15 @@ jib {
         image = "techtony96/boltbot:$project_version-".toString() + getCommitHash()
         switch (getBranchName()) {
             case 'master':
+                project.logger.lifecycle('Current branch 1: ' + getBranchName())
                 tags = ['latest']
                 break
             case 'dev':
+                project.logger.lifecycle('Current branch 2: ' + getBranchName())
                 tags = ['dev-latest']
+                break
+            default:
+                project.logger.lifecycle('Current branch 3: ' + getBranchName())
                 break
         }
         auth {
