@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'eclipse'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'org.springframework.boot' version "$spring_boot_version"
     id 'com.google.cloud.tools.jib' version '1.8.0'
 }
 
@@ -11,11 +11,6 @@ ext {
     github_org = 'DiscordBolt'
     project_name = 'BoltBot'
     artifact_group = 'com.discordbolt'
-    project_version = '4.0'
-
-    spring_boot_version = '2.2.2.RELEASE'
-    d4j_version = '3.0.12'
-    command_version = 'dev-SNAPSHOT' // Change once 2.2.1 is released
 }
 
 group "$artifact_group"
@@ -31,23 +26,21 @@ bootJar {
 
 repositories {
     mavenCentral()
-    // Command API
-    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     // Spring Boot
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$spring_boot_version"
     // Spring Data
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: "$spring_boot_version"
+    //implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: "$spring_boot_version"
     // Spring MongoDB Reactive
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb-reactive', version: "$spring_boot_version"
+    //implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb-reactive', version: "$spring_boot_version"
     // Discord4J
-    implementation group: 'com.discord4j.discord4j', name: 'discord4j-core', version: "$d4j_version"
-    // Command API
-    implementation group: 'com.github.DiscordBolt', name: 'CommandAPI', version: "$command_version"
+    implementation group: 'com.discord4j', name: 'discord4j-core', version: "$d4j_version"
     // Reflections (For BotModules)
     implementation group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    // @NotNull annotations
+    implementation group: 'org.checkerframework', name: 'checker', version: '2.1.12'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$spring_boot_version"
@@ -73,11 +66,11 @@ processResources {
     }
 }
 
-def getCommitHash() {
+static def getCommitHash() {
     'git rev-parse --verify --short HEAD'.execute().text.trim()
 }
 
-def getBranchName() {
+static def getBranchName() {
     'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
 }
 
