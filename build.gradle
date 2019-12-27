@@ -82,13 +82,15 @@ jib {
     }
     to {
         image = "techtony96/boltbot:$project_version-".toString() + getCommitHash()
-        switch (project.findProject("GitBranch")) {
+        switch (project.findProperty('GitBranch')) {
             case 'master':
                 tags = ['latest']
                 break
             case 'dev':
                 tags = ['dev-latest']
                 break
+            default:
+                project.logger.lifecycle('Unknown Branch: ' + project.findProperty('GitBranch'))
         }
         auth {
             username = 'techtony96'
