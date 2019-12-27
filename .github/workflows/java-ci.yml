@@ -15,8 +15,12 @@ jobs:
         java-version: 12
     - name: Build with Gradle
       env:
+        GIT_BRANCH: ${{ github.ref }}
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         DISCORD_TOKEN_DEV: ${{ secrets.DISCORD_TOKEN_DEV }}
       run: ./gradlew build
     - name: Deploy Docker Image
-      run: ./gradlew jib -PGitBranch=${{ github.ref }} -PDockerPassword=${{ secrets.DOCKER_PASSWORD }}
+      env:
+        GIT_BRANCH: ${{ github.ref }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: ./gradlew jib

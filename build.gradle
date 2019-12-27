@@ -56,7 +56,7 @@ processResources {
             p['boltbot.version'] = "$project_version".toString()
             p['boltbot.commit'] = getCommitHash()
             p['discord.token'] = System.getenv('DISCORD_TOKEN')
-            if (getBranchName() != 'master') {
+            if (System.getenv('GIT_BRANCH') != 'refs/heads/master') {
                 p['spring.data.mongodb.database'] = 'BoltBot-Dev'
                 p['discord.token'] = System.getenv('DISCORD_TOKEN_DEV')
             }
@@ -82,7 +82,7 @@ jib {
     }
     to {
         image = "techtony96/boltbot:$project_version-".toString() + getCommitHash()
-        switch (project.findProperty('GitBranch')) {
+        switch (System.getenv('GIT_BRANCH')) {
             case 'refs/heads/master':
                 tags = ['latest']
                 break
@@ -90,11 +90,11 @@ jib {
                 tags = ['dev-latest']
                 break
             default:
-                project.logger.lifecycle('Unknown Branch: ' + project.findProperty('GitBranch'))
+                project.logger.lifecycle('Unknown Branch: ' + System.getenv('GIT_BRANCH'))
         }
         auth {
             username = 'techtony96'
-            password = project.findProperty('DockerPassword')
+            password = System.getenv('DOCKER_PASSWORD')
         }
     }
     container {
