@@ -56,7 +56,6 @@ processResources {
             p['boltbot.version'] = "$project_version".toString()
             p['boltbot.commit'] = getCommitHash()
             p['discord.token'] = System.getenv('DISCORD_TOKEN')
-            p['twitch.clientid'] = System.getenv('TWITCH_CLIENT_ID')
             if (getBranchName() != 'master') {
                 p['spring.data.mongodb.database'] = 'BoltBot-Dev'
                 p['discord.token'] = System.getenv('DISCORD_TOKEN_DEV')
