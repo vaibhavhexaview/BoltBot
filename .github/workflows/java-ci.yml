@@ -18,3 +18,5 @@ jobs:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN_DEV }}
         DISCORD_TOKEN_DEV: ${{ secrets.DISCORD_TOKEN_DEV }}
       run: ./gradlew build
+    - name: Deploy Docker Image
+      run: ./gradlew jib -PDockerPassword=${{ secrets.DOCKER_PASSWORD }}
