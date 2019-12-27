@@ -19,7 +19,6 @@ public class DiscordConfiguration {
 
     public DiscordConfiguration(@Value("${discord.token}") String token) {
         LOGGER.info("Starting configuration of Discord Client");
-        LOGGER.info("Using token: " + token);
         client = new DiscordClientBuilder(token).build();
     }
 
