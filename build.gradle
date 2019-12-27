@@ -83,10 +83,10 @@ jib {
     to {
         image = "techtony96/boltbot:$project_version-".toString() + getCommitHash()
         switch (project.findProperty('GitBranch')) {
-            case 'master':
+            case 'refs/heads/master':
                 tags = ['latest']
                 break
-            case 'dev':
+            case 'refs/heads/dev':
                 tags = ['dev-latest']
                 break
             default:
