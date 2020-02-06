@@ -31,6 +31,6 @@ public class UptimeCommand extends CustomCommand {
                 .substring(2)
                 .replaceAll("(\\d[HMS])(?!$)", "$1 ")
                 .toLowerCase();
-        commandContext.replyWith(fancyTime);
+        commandContext.replyWith(fancyTime).subscribe();
     }
 }
