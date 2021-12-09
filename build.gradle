@@ -23,7 +23,7 @@ bootJar {
     baseName = "$project_name"
     version = "$project_version"
 }
-
+//s
 repositories {
     mavenCentral()
 }
